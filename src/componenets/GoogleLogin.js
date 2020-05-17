@@ -1,20 +1,29 @@
-import React from "react";
-import { Typography, Button } from "@material-ui/core";
+import React, { useContext, useState, useEffect } from "react";
+import { Button } from "@material-ui/core";
 import { loginWithGoogle } from "../auth";
-
+import { DispatchContext, StateContext } from "../contexts";
 
 function GoogleLogin() {
-  const handleOnClick = (e) => {
+  const dispatch = useContext(DispatchContext);
+  const { isLoading } = useContext(StateContext);
+
+  const handleOnClick = async (e) => {
     e.preventDefault();
-    loginWithGoogle();
+    dispatch({ type: "USER_LOGIN_REQUEST" });
+    loginWithGoogle()
+      .then((user) => {
+        dispatch({
+          type: "USER_LOGIN_SUCCESS",
+          payload: user,
+        });
+      })
+      .catch((err) => dispatch({ type: "USER_LOGIN_FAILURE", payload: err }));
   };
+
   return (
     <div>
-      <Typography variant="h5">React Firebase Auth</Typography>
-      Hello
-      <br/>
       <Button variant="contained" onClick={handleOnClick}>
-        Login with Google
+        {isLoading ? "Logging in..." : "Login with Google"}
       </Button>
     </div>
   );

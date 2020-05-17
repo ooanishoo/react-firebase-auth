@@ -1,23 +1,30 @@
 import firebase from "./firebase";
+import { useContext } from "react";
+import { DispatchContext } from "./contexts";
 
-export const loginWithGoogle = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      const user = result.user;
-      console.log({ user });
-      const person = {
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-      };
-      addUserToCollection(person);
-      return person;
-    })
-    .catch((err) => console.log({ err }));
-};
+export async function loginWithGoogle() {
+  return new Promise((resolve, reject) => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        const person = {
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        };
+        //addUserToCollection(person);
+
+        resolve(person);
+      })
+      .catch((err) => {
+        console.log({ err });
+        reject(err);
+      });
+  });
+}
 
 export async function addUserToCollection(user) {
   const db = firebase.firestore();
