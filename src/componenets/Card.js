@@ -7,9 +7,7 @@ import { Skeleton } from "@material-ui/lab";
 import { StateContext } from "../contexts";
 
 function Card() {
-  const { user, isLoading, error } = useContext(StateContext);
-  console.log({ isLoading });
-  console.log({ user });
+  const { user, isLoading } = useContext(StateContext);
   return (
     <div>
       <CardHeader

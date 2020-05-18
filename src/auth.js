@@ -24,7 +24,7 @@ export async function loginWithProvider(providerId = "google.com") {
           email: user.email,
           photoURL: user.photoURL,
         };
-        //addUserToCollection(person);
+        addUserToCollection(person);
         resolve(person);
       })
       .catch((err) => {
@@ -37,8 +37,9 @@ export async function loginWithProvider(providerId = "google.com") {
 export const useIsLoggedIn = () => {
   const [val, setVal] = useState(false);
   auth.onAuthStateChanged((user) => {
-    if (user) setVal(true);
-    else setVal(false);
+    if (user) {
+      setVal(true);
+    }
   });
   return val;
 };
@@ -74,13 +75,3 @@ export async function addUserToCollection(user) {
     console.log("User not added to collection");
   }
 }
-
-// var provider = new firebase.auth.GoogleAuthProvider();
-// provider.addScope('profile');
-// provider.addScope('email');
-// firebase.auth().signInWithPopup(provider).then(function(result) {
-//  // This gives you a Google Access Token.
-//  var token = result.credential.accessToken;
-//  // The signed-in user info.
-//  var user = result.user;
-// });

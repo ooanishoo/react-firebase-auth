@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Button } from "@material-ui/core";
 import { loginWithProvider, useIsLoggedIn } from "../auth";
 import { DispatchContext, StateContext } from "../contexts";
@@ -9,16 +9,14 @@ function ProviderLogin() {
   const { isLoading } = useContext(StateContext);
   const isLoggedIn = useIsLoggedIn();
 
-  const handleLogout = (e) => {
-    e.preventDefault();
+  const handleLogout = () => {
     auth
       .signOut()
       .then(() => dispatch({ type: "USER_LOGOUT" }))
       .catch((err) => alert(err));
   };
 
-  const handleLogin = async (e, providerId) => {
-    e.preventDefault();
+  const handleLogin = async (providerId) => {
     dispatch({ type: "USER_LOGIN_REQUEST" });
     loginWithProvider(providerId)
       .then((user) => {
@@ -36,7 +34,7 @@ function ProviderLogin() {
         color="primary"
         variant="outlined"
         onClick={(e) => {
-          isLoggedIn ? handleLogout(e) : handleLogin(e, "google.com");
+          isLoggedIn ? handleLogout() : handleLogin("google.com");
         }}
       >
         {isLoggedIn
@@ -49,7 +47,7 @@ function ProviderLogin() {
         color="primary"
         variant="contained"
         onClick={(e) => {
-          isLoggedIn ? handleLogout(e) : handleLogin(e, "facebook.com");
+          isLoggedIn ? handleLogout() : handleLogin("facebook.com");
         }}
       >
         {isLoggedIn
