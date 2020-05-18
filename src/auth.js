@@ -1,22 +1,30 @@
 import firebase, { auth } from "./firebase";
-import { useContext, useEffect } from "react";
-import { DispatchContext } from "./contexts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export async function loginWithGoogle() {
+export async function loginWithProvider(providerId = "google.com") {
   return new Promise((resolve, reject) => {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.OAuthProvider(providerId);
+    // Reject if provider not found
+    if (!provider) {
+      reject();
+      return;
+    }
+    //Don't login if the user is logged in
+    if (auth.currentUser) {
+      reject();
+      return;
+    }
     auth
       .signInWithPopup(provider)
       .then((result) => {
         const user = result.user;
+        console.log({ user });
         const person = {
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
         };
         //addUserToCollection(person);
-
         resolve(person);
       })
       .catch((err) => {

@@ -10,7 +10,6 @@ function Card() {
   const { user, isLoading, error } = useContext(StateContext);
   console.log({ isLoading });
   console.log({ user });
-  if (error !== null) alert(error);
   return (
     <div>
       <CardHeader

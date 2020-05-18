@@ -31,6 +31,11 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         user: payload,
       };
+    case "CLEAR_ERROR":
+      return {
+        ...state,
+        error: null,
+      };
 
     default:
       return state;
