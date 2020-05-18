@@ -1,17 +1,17 @@
-import firebase from "./firebase";
-import { useContext } from "react";
+import firebase, { auth } from "./firebase";
+import { useContext, useEffect } from "react";
 import { DispatchContext } from "./contexts";
+import { useState } from "react";
 
 export async function loginWithGoogle() {
   return new Promise((resolve, reject) => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
+    auth
       .signInWithPopup(provider)
       .then((result) => {
         const user = result.user;
         const person = {
-          name: user.displayName,
+          displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
         };
@@ -26,6 +26,37 @@ export async function loginWithGoogle() {
   });
 }
 
+export const useIsLoggedIn = () => {
+  const [val, setVal] = useState(false);
+  auth.onAuthStateChanged((user) => {
+    if (user) setVal(true);
+    else setVal(false);
+  });
+  return val;
+};
+
+export const useGetCurrentUser = () => {
+  const [user, setUser] = useState(null);
+  // onAuthStateChanged needs to be called inside useEffect
+  useEffect(
+    () =>
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          const person = {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          };
+          console.log({ person });
+          setUser(person);
+        }
+      }),
+    []
+  );
+  return user;
+};
+
+//Add loggedIn user to `users` collection
 export async function addUserToCollection(user) {
   const db = firebase.firestore();
   const users = db.collection("users");

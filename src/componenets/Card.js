@@ -41,8 +41,8 @@ function Card() {
               width="20%"
               style={{ marginBottom: 6 }}
             />
-          ) : user && user.name ? (
-            user.name
+          ) : user && user.displayName ? (
+            user.displayName
           ) : (
             "Full Name"
           )

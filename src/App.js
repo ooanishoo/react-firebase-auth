@@ -1,44 +1,29 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import { CssBaseline } from "@material-ui/core";
 import GoogleLogin from "./componenets/GoogleLogin";
 import Card from "./componenets/Card";
 import { StateContext, DispatchContext } from "./contexts";
+import { auth } from "./firebase";
+import { useGetCurrentUser } from "./auth";
+import reducer from "./reducer";
+import { INITIAL_STATE } from "./state";
 
-const INITIAL_STATE = {
-  isLoading: false,
-  error: null,
-  user: null,
+const user = {
+  displayName: auth.currentUser && auth.currentUser.displayName,
+  email: auth.currentUser && auth.currentUser.email,
+  photoURL: auth.currentUser && auth.currentUser.displayName,
 };
-
-const reducer = (state = INITIAL_STATE, { type, payload }) => {
-  switch (type) {
-    case "USER_LOGIN_REQUEST":
-      console.log({ type });
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case "USER_LOGIN_SUCCESS":
-      console.log({ type });
-      return {
-        ...state,
-        user: payload,
-        isLoading: false,
-      };
-    case "USER_LOGIN_FAILURE":
-      return {
-        ...state,
-        error: payload,
-        isLoading: false,
-      };
-
-    default:
-      return state;
-  }
-};
+console.log({ user });
 
 function App() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const user = useGetCurrentUser();
+
+  useEffect(() => {
+    console.log({ user });
+    dispatch({ type: "GET_CURRENT_USER", payload: user });
+  }, [user]);
+
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
