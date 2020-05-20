@@ -36,6 +36,11 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         error: null,
       };
+    case "EMAIL_SENT":
+      return {
+        ...state,
+        isLoading: false,
+      };
 
     default:
       return state;

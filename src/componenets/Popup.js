@@ -19,7 +19,7 @@ function Popup() {
       open={open}
       onClose={() => setOpen(false)}
       autoHideDuration={4000}
-      message={error && error.message}
+      message={error && error}
     />
   );
 }

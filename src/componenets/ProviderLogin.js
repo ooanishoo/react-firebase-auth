@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { loginWithProvider, useIsLoggedIn } from "../auth";
 import { DispatchContext, StateContext } from "../contexts";
 import { auth } from "../firebase";
@@ -25,37 +25,44 @@ function ProviderLogin() {
           payload: user,
         });
       })
-      .catch((err) => dispatch({ type: "USER_LOGIN_FAILURE", payload: err }));
+      .catch((err) =>
+        dispatch({
+          type: "USER_LOGIN_FAILURE",
+          payload: err.message ? err.message : err,
+        })
+      );
   };
 
   return (
     <div>
-      <Button
-        color="primary"
-        variant="outlined"
-        onClick={(e) => {
-          isLoggedIn ? handleLogout() : handleLogin("google.com");
-        }}
-      >
-        {isLoggedIn
-          ? "Logout"
-          : isLoading
-          ? "Logging in..."
-          : "Login with Google"}
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={(e) => {
-          isLoggedIn ? handleLogout() : handleLogin("facebook.com");
-        }}
-      >
-        {isLoggedIn
-          ? "Logout"
-          : isLoading
-          ? "Logging in..."
-          : "Login with Facebook"}
-      </Button>
+      <Grid container direction="column" alignItems="center" justify="center">
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={(e) => {
+            isLoggedIn ? handleLogout() : handleLogin("google.com");
+          }}
+        >
+          {isLoggedIn
+            ? "Logout"
+            : isLoading
+            ? "Logging in..."
+            : "Login with Google"}
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={(e) => {
+            isLoggedIn ? handleLogout() : handleLogin("facebook.com");
+          }}
+        >
+          {isLoggedIn
+            ? "Logout"
+            : isLoading
+            ? "Logging in..."
+            : "Login with Facebook"}
+        </Button>
+      </Grid>
     </div>
   );
 }
