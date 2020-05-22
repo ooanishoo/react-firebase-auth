@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { TextField, Button, Grid } from "@material-ui/core";
-import { loginWithoutPassword, confirmSignInWithEmailLink } from "../auth";
+import { sendSignInEmailLink, confirmSignInWithEmailLink } from "../auth";
 import { DispatchContext } from "../contexts";
 
 function PasswordlessLogin() {
@@ -9,7 +9,7 @@ function PasswordlessLogin() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: "USER_LOGIN_REQUEST" });
-    loginWithoutPassword(email)
+    sendSignInEmailLink(email)
       .then(() => {
         dispatch({ type: "EMAIL_SENT" });
         setEmail("");

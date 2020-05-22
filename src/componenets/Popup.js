@@ -18,7 +18,7 @@ function Popup() {
       TransitionComponent={Slide}
       open={open}
       onClose={() => setOpen(false)}
-      autoHideDuration={4000}
+      autoHideDuration={5000}
       message={error && error}
     />
   );

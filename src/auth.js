@@ -1,5 +1,6 @@
 import firebase, { auth } from "./firebase";
 import { useState, useEffect } from "react";
+import history from "./history";
 
 export const confirmSignInWithEmailLink = async () => {
   return new Promise((resolve, reject) => {
@@ -31,15 +32,45 @@ export const confirmSignInWithEmailLink = async () => {
           // Clear email from storage.
           window.localStorage.removeItem("emailForSignIn");
 
-          // need to clear the url !
           resolve(person);
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err))
+        .finally(() => {
+          // need to clear the url !
+          //history.push("/");
+        });
     }
   });
 };
 
-export async function loginWithoutPassword(email) {
+export async function signInWithEmailLink(email) {
+  const url = window.location.href;
+
+  return new Promise((resolve, reject) => {
+    auth
+      .signInWithEmailLink(email, url)
+      .then((result) => {
+        console.log({ result });
+        const user = result.user;
+        const person = {
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        };
+        // Clear email from storage.
+        window.localStorage.removeItem("emailForSignIn");
+
+        resolve(person);
+      })
+      .catch((err) => reject(err))
+      .finally(() => {
+        // need to clear the url !
+        history.push("/");
+      });
+  });
+}
+
+export async function sendSignInEmailLink(email) {
   return new Promise((resolve, reject) => {
     // Reject if email is not provided
     if (!email) {
@@ -53,7 +84,7 @@ export async function loginWithoutPassword(email) {
     }
 
     const actionCodeSettings = {
-      url: "http://localhost:3000/",
+      url: "http://localhost:3001/sign-in-with-email-link",
       handleCodeInApp: true,
     };
     auth
