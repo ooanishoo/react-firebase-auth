@@ -183,9 +183,10 @@ export async function sendSignInEmailLink(email) {
       reject("A user is currently logged in. Please logout first!");
       return;
     }
-
+    const url = window.location.href;
+    const dynamicUrl = url.slice(0, url.lastIndexOf("/"));
     const actionCodeSettings = {
-      url: "http://localhost:3001/sign-in-with-email-link",
+      url: `${dynamicUrl}/sign-in-with-email-link`,
       handleCodeInApp: true,
     };
     auth
