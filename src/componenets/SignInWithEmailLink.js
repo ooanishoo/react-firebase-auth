@@ -57,6 +57,8 @@ export default function SignInWithEmailLink() {
   const [isRedirect, setIsRedirect] = useState(false);
   const [isSameDevice, setIsSameDevice] = useState(true);
 
+  console.log("holaaaaaaaa");
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     signInWithEmailLink(email)
@@ -78,15 +80,23 @@ export default function SignInWithEmailLink() {
   // }, []);
 
   useEffect(() => {
+    console.log("useEffect is happening......");
     if (auth.isSignInWithEmailLink(url)) {
       setIsRedirect(true);
     }
-    var email = window.localStorage.getItem("emailForSignIn");
-    if (!email) {
-      setEmail(email);
-      setIsSameDevice(false);
+  }, []);
+
+  useEffect(() => {
+    console.log({ isRedirect });
+    if (isRedirect) {
+      var email = window.localStorage.getItem("emailForSignIn");
+      if (!email) {
+        setEmail(email);
+        setIsSameDevice(false);
+      }
+      console.log({ email });
     }
-  }, [url]);
+  }, [isRedirect]);
 
   return (
     <Container component="main" maxWidth="xs">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -13,6 +13,14 @@ import Container from "@material-ui/core/Container";
 import SocialLogin from "./SocialLogin";
 import Copyright from "./Copyright";
 import { Link } from "react-router-dom";
+import { DispatchContext, StateContext } from "../contexts";
+import { signUpWithEmailAndPassword } from "../auth";
+import {
+  userLoginRequest,
+  userLoginFailure,
+  userLoginSuccess,
+} from "../actionTypes";
+import history from "../history";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,6 +44,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useContext(DispatchContext);
+  const { isLoading } = useContext(StateContext);
+
+  const user = {
+    name,
+    email,
+    password,
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    if (!isLoading) {
+      dispatch(userLoginRequest());
+      signUpWithEmailAndPassword(user)
+        .then((user) => {
+          dispatch(userLoginSuccess(user));
+          history.push("/dashboard");
+        })
+        .catch((err) => dispatch(userLoginFailure(err)));
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,7 +78,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleOnSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -57,6 +89,8 @@ export default function SignUp() {
             name="name"
             autoComplete="name"
             autoFocus
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -67,6 +101,8 @@ export default function SignUp() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -78,6 +114,8 @@ export default function SignUp() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -90,7 +128,7 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            {isLoading ? `Signing up...` : `Sign Up`}
           </Button>
           <Grid container>
             <Grid item>
@@ -99,7 +137,6 @@ export default function SignUp() {
           </Grid>
         </form>
       </div>
-      <SocialLogin />
       <Box mt={8}>
         <Copyright />
       </Box>

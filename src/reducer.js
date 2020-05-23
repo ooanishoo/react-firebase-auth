@@ -14,6 +14,7 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         user: payload,
         isLoading: false,
+        authenticated: true,
       };
     case "USER_LOGIN_FAILURE":
       return {
@@ -30,6 +31,7 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         user: payload,
+        authenticated: true,
       };
     case "CLEAR_ERROR":
       return {

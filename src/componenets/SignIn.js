@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -14,6 +14,13 @@ import SocialLogin from "./SocialLogin";
 import Copyright from "./Copyright";
 import { Link } from "react-router-dom";
 import history from "../history";
+import { DispatchContext, StateContext } from "../contexts";
+import {
+  userLoginRequest,
+  userLoginFailure,
+  userLoginSuccess,
+} from "../actionTypes";
+import { signInWithEmailAndPassword } from "../auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +44,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useContext(DispatchContext);
+  const { isLoading } = useContext(StateContext);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    if (!isLoading) {
+      dispatch(userLoginRequest());
+      signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          console.log({ user });
+          dispatch(userLoginSuccess(user));
+          history.push("/dashboard");
+        })
+        .catch((err) => dispatch(userLoginFailure(err)));
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -47,7 +72,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleOnSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -58,6 +83,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -69,6 +96,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -81,7 +110,7 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            {isLoading ? `Signing In...` : `Sign In`}
           </Button>
           <Grid container>
             <Grid item xs>

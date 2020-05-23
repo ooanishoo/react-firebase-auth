@@ -1,11 +1,12 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useContext, useState } from "react";
 import { CssBaseline } from "@material-ui/core";
 import { StateContext, DispatchContext } from "./contexts";
 import { useGetCurrentUser } from "./auth";
 import reducer from "./reducer";
 import { INITIAL_STATE } from "./state";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import {
+  Dashboard,
   SignIn,
   SignUp,
   ForgotPassword,
@@ -13,7 +14,6 @@ import {
   SendSignInEmailLink,
 } from "./componenets";
 import Popup from "./componenets/Popup";
-import Dashboard from "./componenets/Dashboard";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
@@ -22,10 +22,6 @@ function App() {
     console.log({ user });
     dispatch({ type: "GET_CURRENT_USER", payload: user });
   }, [user]);
-
-  const location = window.location.href;
-  console.log({ location });
-  console.log("env test" + process.env.REACT_APP_FIREBASE_API_KEY);
 
   return (
     <StateContext.Provider value={state}>

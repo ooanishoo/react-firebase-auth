@@ -8,6 +8,8 @@ import {
   userLoginFailure,
 } from "../actionTypes";
 import history from "../history";
+import { Facebook as FacebookIcon } from "mdi-material-ui";
+import { Google as GoogleIcon } from "mdi-material-ui";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,8 +46,10 @@ function SocialLogin() {
         fullWidth
         variant="contained"
         color="primary"
+        style={{ backgroundColor: "#4267B2" }}
         className={classes.social}
         onClick={() => handleLogin("facebook.com")}
+        startIcon={<FacebookIcon />}
       >
         Sign in with Facebook
       </Button>
@@ -53,8 +57,10 @@ function SocialLogin() {
         fullWidth
         variant="contained"
         color="default"
+        style={{ backgroundColor: "white" }}
         className={classes.social}
         onClick={() => handleLogin("google.com")}
+        startIcon={<GoogleIcon />}
       >
         Sign in with Google
       </Button>
