@@ -68,17 +68,18 @@ export async function signInWithEmailLink(email) {
           };
           // Clear email from storage.
           window.localStorage.removeItem("emailForSignIn");
-
+          history.push("/dashboard");
           resolve(person);
         })
         .catch((err) => {
           console.log({ err });
-          reject(err);
-        })
-        .finally(() => {
-          // need to clear the url !
           history.push("/");
+          reject(err);
         });
+      // .finally(() => {
+      //   // need to clear the url !
+      //   history.push("/");
+      // });
     }
   });
 }

@@ -25,6 +25,7 @@ import {
   sendEmailLinkFailure,
   userLoginSuccess,
   userLoginFailure,
+  userLoginRequest,
 } from "../actionTypes";
 import { auth } from "../firebase";
 
@@ -61,6 +62,7 @@ export default function SignInWithEmailLink() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    dispatch(userLoginRequest());
     signInWithEmailLink(email)
       .then((user) => dispatch(userLoginSuccess(user)))
       .catch((err) => dispatch(userLoginFailure(err.message)));
@@ -90,10 +92,10 @@ export default function SignInWithEmailLink() {
     console.log({ isRedirect });
     if (isRedirect) {
       var email = window.localStorage.getItem("emailForSignIn");
-      if (!email) {
-        setEmail(email);
-        setIsSameDevice(false);
-      }
+      email ? setEmail(email) : setIsSameDevice(false);
+      // if (!email) {
+      //   setIsSameDevice(false);
+      // }
       console.log({ email });
     }
   }, [isRedirect]);
@@ -112,21 +114,20 @@ export default function SignInWithEmailLink() {
           Click the button to sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleOnSubmit}>
-          {!isSameDevice ? (
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-          ) : null}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            disabled={isSameDevice ? true : false}
+          />
           <Button
             type="submit"
             fullWidth
@@ -134,7 +135,7 @@ export default function SignInWithEmailLink() {
             color="primary"
             className={classes.submit}
           >
-            Login
+            {isLoading ? `Signing In...` : `Sign In`}
           </Button>
         </form>
       </div>

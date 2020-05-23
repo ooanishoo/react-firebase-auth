@@ -20,6 +20,7 @@ function App() {
   const user = useGetCurrentUser();
   useEffect(() => {
     console.log({ user });
+    console.log(process.env.REACT_APP_HOMEPAGE);
     dispatch({ type: "GET_CURRENT_USER", payload: user });
   }, [user]);
 

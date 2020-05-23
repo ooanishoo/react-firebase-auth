@@ -14,6 +14,7 @@ function Dashboard() {
   const { user } = useContext(StateContext);
   const [name, setName] = useState("Full name");
   const [email, setEmail] = useState("Email");
+  const [photoURL, setPhotoURL] = useState("");
 
   useEffect(() => {
     console.log("useEffect ma xu");
@@ -24,6 +25,9 @@ function Dashboard() {
     if (user && user.email) {
       setEmail(user.email);
     }
+    if (user && user.photoURL) {
+      setPhotoURL(user.photoURL);
+    }
   }, [user]);
 
   return (
@@ -32,7 +36,7 @@ function Dashboard() {
       <Container maxWidth="md">
         <Card>
           <CardHeader
-            avatar={<Avatar></Avatar>}
+            avatar={<Avatar src={photoURL}></Avatar>}
             title={name}
             subheader={email}
           />
