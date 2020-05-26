@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import history from "./history";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={history}>
+    <Router history={history} basename={process.env.PUBLIC_URL}>
       <App />
     </Router>
   </React.StrictMode>,

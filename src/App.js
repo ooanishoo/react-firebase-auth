@@ -24,6 +24,8 @@ function App() {
     dispatch({ type: "GET_CURRENT_USER", payload: user });
   }, [user]);
 
+  console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
+
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
@@ -32,19 +34,20 @@ function App() {
         <Route>
           <Switch>
             <Route exact path="/" component={SignIn} />
-            <Route exact path="/react-firebase-auth" component={SignIn} />
             <Route exact path="/sign-in" component={SignIn} />
             <Route exact path="/sign-up" component={SignUp} />
-            <Route path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/dashboard" component={Dashboard} />
             <Route
+              exact
               path="/sign-in-with-email-link"
               component={SignInWithEmailLink}
             />
             <Route
+              exact
               path="/send-sign-in-email-link"
               component={SendSignInEmailLink}
             />
-            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         </Route>
       </DispatchContext.Provider>

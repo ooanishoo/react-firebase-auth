@@ -7,9 +7,9 @@ import {
   userLoginSuccess,
   userLoginFailure,
 } from "../actionTypes";
-import history from "../history";
 import { Facebook as FacebookIcon } from "mdi-material-ui";
 import { Google as GoogleIcon } from "mdi-material-ui";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,9 +26,11 @@ const useStyles = makeStyles((theme) => ({
 function SocialLogin() {
   const classes = useStyles();
   const dispatch = useContext(DispatchContext);
+  const history = useHistory();
 
   const handleLogin = async (providerId) => {
     dispatch(userLoginRequest());
+
     loginWithProvider(providerId)
       .then((user) => {
         dispatch(userLoginSuccess(user));

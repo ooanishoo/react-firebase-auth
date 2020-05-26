@@ -186,8 +186,13 @@ export async function sendSignInEmailLink(email) {
     }
     const url = window.location.href;
     const dynamicUrl = url.slice(0, url.lastIndexOf("/"));
+    console.log("-----------------------------");
+    console.log({ dynamicUrl });
+    console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
+    const URL = `${dynamicUrl}/${process.env.PUBLIC_URL}/sign-in-with-email-link`;
+    console.log({ URL });
     const actionCodeSettings = {
-      url: `${dynamicUrl}/sign-in-with-email-link`,
+      url: URL,
       handleCodeInApp: true,
     };
     auth

@@ -9,11 +9,12 @@ import {
 } from "@material-ui/core";
 import { StateContext, DispatchContext } from "../contexts";
 import { auth } from "../firebase";
-import history from "../history";
+import { useHistory } from "react-router-dom";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useContext(DispatchContext);
+  const history = useHistory();
 
   const handleOpenMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -27,6 +28,7 @@ export default function Header() {
       .then(() => {
         dispatch({ type: "USER_LOGOUT" });
         history.push("/sign-in");
+        // history.push(`${process.env.PUBLIC_URL}/sign-in`);
       })
       .catch((err) => alert(err));
   };

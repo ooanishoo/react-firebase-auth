@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import SocialLogin from "./SocialLogin";
 import Copyright from "./Copyright";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   sendSignInEmailLink,
   confirmSignInWithEmailLink,
@@ -20,9 +20,6 @@ import {
 } from "../auth";
 import { DispatchContext, StateContext } from "../contexts";
 import {
-  sendEmailLinkRequest,
-  sendEmailLinkSuccess,
-  sendEmailLinkFailure,
   userLoginSuccess,
   userLoginFailure,
   userLoginRequest,
@@ -57,14 +54,16 @@ export default function SignInWithEmailLink() {
   const url = window.location.href;
   const [isRedirect, setIsRedirect] = useState(false);
   const [isSameDevice, setIsSameDevice] = useState(true);
-
-  console.log("holaaaaaaaa");
+  const history = useHistory();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(userLoginRequest());
     signInWithEmailLink(email)
-      .then((user) => dispatch(userLoginSuccess(user)))
+      .then((user) => {
+        dispatch(userLoginSuccess(user));
+        history.push("/dashboard");
+      })
       .catch((err) => dispatch(userLoginFailure(err.message)));
   };
 

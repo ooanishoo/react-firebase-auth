@@ -13,7 +13,6 @@ import Container from "@material-ui/core/Container";
 import SocialLogin from "./SocialLogin";
 import Copyright from "./Copyright";
 import { Link } from "react-router-dom";
-import history from "../history";
 import { DispatchContext, StateContext } from "../contexts";
 import {
   userLoginRequest,
@@ -21,6 +20,7 @@ import {
   userLoginSuccess,
 } from "../actionTypes";
 import { signInWithEmailAndPassword } from "../auth";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,6 +48,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const dispatch = useContext(DispatchContext);
   const { isLoading } = useContext(StateContext);
+  const history = useHistory();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();

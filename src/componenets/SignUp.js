@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import SocialLogin from "./SocialLogin";
 import Copyright from "./Copyright";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { DispatchContext, StateContext } from "../contexts";
 import { signUpWithEmailAndPassword } from "../auth";
 import {
@@ -20,7 +20,6 @@ import {
   userLoginFailure,
   userLoginSuccess,
 } from "../actionTypes";
-import history from "../history";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,6 +48,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const dispatch = useContext(DispatchContext);
   const { isLoading } = useContext(StateContext);
+  const history = useHistory();
 
   const user = {
     name,
