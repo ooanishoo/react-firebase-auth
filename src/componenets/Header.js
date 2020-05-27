@@ -6,6 +6,7 @@ import {
   Menu,
   MenuItem,
   Avatar,
+  Grid,
 } from "@material-ui/core";
 import { StateContext, DispatchContext } from "../contexts";
 import { auth } from "../firebase";
@@ -39,6 +40,7 @@ export default function Header() {
     <div>
       <AppBar position="static">
         <Toolbar>
+          <Grid item xs />
           <IconButton
             edge="end"
             aria-label="account of current user"
