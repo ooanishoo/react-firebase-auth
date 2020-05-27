@@ -3,11 +3,14 @@ A react app using hooks integrated with firebase for authenticating users. The a
     
     - Full Firebase Platform Support Including Firestore Database, Authentication, Analytics and Storage
     - Uses react-hooks only for components
-       ✅ Functional components 
-       🚫 Class components
-    - Utilize `useReducer` and `useContext` react hooks to manage state of the app
-    - Menu page
-    - Story view page
+        ✅ Functional components 
+        🚫 Class components
+    - Utilize `useReducer` and `useContext` react hooks to manage global state of the app and `useState` for internal component states.
+    - Various authentication methods to authenticate users:
+        * SignUp using email and password 
+        * Sign In using Facebook and Google
+        * Sign In using an email link
+    - [MaterialUI](https://material-ui.com/) design components
     
 ## Getting Started
 
@@ -18,17 +21,10 @@ A react app using hooks integrated with firebase for authenticating users. The a
 Download or clone this repo by using the link below:
 
 ```
-https://github.com/ooanishoo/react-firebase-auth
+git clone https://github.com/ooanishoo/react-firebase-auth
 ```
 
 **Step 2:**
-
-Go to project root folder
-``` 
-cd react-firebase-auth
-```
-
-**Step 3:**
 
 Setup a new project in firebase and get the configuration. It will look something like this:
 <p>
@@ -36,9 +32,9 @@ Setup a new project in firebase and get the configuration. It will look somethin
 <p/>
 
 
-**Step 4:**
+**Step 3:**
 
-Go to the project root folder 
+Go to the root folder of the project.
 ``` 
 cd react-firebase-auth
 ```
@@ -47,6 +43,7 @@ Create a new file `.env`
 touch .env
 ```
 Add these env variables with the config values you recieived from firebase
+(No quotes `""`required)
 ```
 REACT_APP_FIREBASE_API_KEY=
 REACT_APP_FIREBASE_AUTH_DOMAIN=
@@ -60,7 +57,7 @@ REACT_APP_FIREBASE_MEASUREMENT_ID=
 
 **Step 5:**
 
-Execute the following command in console to get the required dependencies: 
+Execute the following command in console to install the required packages: 
 
 ``` 
 npm install
