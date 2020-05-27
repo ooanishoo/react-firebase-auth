@@ -19,6 +19,7 @@ import {
   userLoginFailure,
   userLoginSuccess,
 } from "../actionTypes";
+import firebase, { auth } from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,6 +46,8 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [keepUserLoggedIn, setKeepUserLoggedIn] = useState(true);
+
   const dispatch = useContext(DispatchContext);
   const { isLoading } = useContext(StateContext);
   const history = useHistory();
@@ -59,6 +62,12 @@ export default function SignUp() {
     e.preventDefault();
     if (!isLoading) {
       dispatch(userLoginRequest());
+      if (!keepUserLoggedIn) {
+        // Auth states are now persisted in the current
+        // session only. Closing the window would clear any existing state even
+        // if a user forgets to sign out.
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+      }
       signUpWithEmailAndPassword(user)
         .then((user) => {
           dispatch(userLoginSuccess(user));
@@ -117,8 +126,14 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            control={
+              <Checkbox
+                checked={keepUserLoggedIn}
+                color="primary"
+                onClick={(e) => setKeepUserLoggedIn(e.target.checked)}
+              />
+            }
+            label="Keep me logged in"
           />
           <Button
             type="submit"

@@ -47,7 +47,7 @@ export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [keepLoggedIn, setKeepLoggedIn] = useState(true);
+  const [keepUserLoggedIn, setKeepUserLoggedIn] = useState(true);
   const dispatch = useContext(DispatchContext);
   const { isLoading } = useContext(StateContext);
   const history = useHistory();
@@ -56,7 +56,7 @@ export default function SignIn() {
     e.preventDefault();
     if (!isLoading) {
       dispatch(userLoginRequest());
-      if (!keepLoggedIn) {
+      if (!keepUserLoggedIn) {
         // Auth states are now persisted in the current
         // session only. Closing the window would clear any existing state even
         // if a user forgets to sign out.
@@ -110,9 +110,9 @@ export default function SignIn() {
           <FormControlLabel
             control={
               <Checkbox
-                checked={keepLoggedIn}
+                checked={keepUserLoggedIn}
                 color="primary"
-                onClick={(e) => setKeepLoggedIn(e.target.checked)}
+                onClick={(e) => setKeepUserLoggedIn(e.target.checked)}
               />
             }
             label="Keep me logged in"
