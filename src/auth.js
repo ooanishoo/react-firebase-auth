@@ -189,7 +189,7 @@ export async function sendSignInEmailLink(email) {
     console.log("-----------------------------");
     console.log({ dynamicUrl });
     console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
-    const URL = `${dynamicUrl}/${process.env.PUBLIC_URL}/sign-in-with-email-link`;
+    const URL = `${dynamicUrl}/sign-in-with-email-link`;
     console.log({ URL });
     const actionCodeSettings = {
       url: URL,
@@ -241,6 +241,31 @@ export async function loginWithProvider(providerId = "google.com") {
       });
   });
 }
+
+export const sendEmailToResetPassword = async (email) => {
+  return new Promise((resolve, reject) => {
+    // Reject if email is not provided
+    if (!email) {
+      reject("Please provide a valid email address");
+      return;
+    }
+    const url = window.location.href;
+    const dynamicUrl = url.slice(0, url.lastIndexOf("/"));
+    console.log("-----------------------------");
+    console.log({ dynamicUrl });
+    console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
+    const URL = `${dynamicUrl}/sign-in`;
+    console.log({ URL });
+    const actionCodeSettings = {
+      url: URL,
+      handleCodeInApp: true,
+    };
+    auth
+      .sendPasswordResetEmail(email, actionCodeSettings)
+      .then(() => resolve("Email sent"))
+      .catch((err) => reject(err));
+  });
+};
 
 export const isLoggedIn = () =>
   new Promise((resolve, reject) => {

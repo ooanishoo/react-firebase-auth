@@ -1,10 +1,10 @@
-import React, { useReducer, useEffect, useContext, useState } from "react";
+import React, { useReducer, useEffect } from "react";
 import { CssBaseline } from "@material-ui/core";
 import { StateContext, DispatchContext } from "./contexts";
 import { useGetCurrentUser } from "./auth";
 import reducer from "./reducer";
 import { INITIAL_STATE } from "./state";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import {
   Dashboard,
   SignIn,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -8,6 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Copyright from "./Copyright";
+import { sendEmailToResetPassword } from "../auth";
+import { DispatchContext, StateContext } from "../contexts";
+import { sendEmailLinkSuccess, sendEmailLinkFailure } from "../actionTypes";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,10 +34,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ForgotPassword() {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const dispatch = useContext(DispatchContext);
+  const { isLoading, error } = useContext(StateContext);
+  const [isEmailSent, setIsEmailSent] = useState(false);
 
   const handleOnClick = (e) => {
     e.preventDefault();
-    alert("Send reset password email here");
+
+    if (isEmailSent) {
+      return;
+    }
+
+    // Dispatch actions only if in idle state
+    if (!isLoading) {
+      sendEmailToResetPassword(email)
+        .then((msg) => {
+          console.log(msg);
+          dispatch(sendEmailLinkSuccess());
+          setEmail("");
+          setIsEmailSent(true);
+        })
+        .catch((err) => dispatch(sendEmailLinkFailure(err)));
+    }
   };
 
   return (
@@ -52,17 +74,21 @@ export default function ForgotPassword() {
           password.
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
+          {!isEmailSent ? (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+          ) : null}
           <Button
             type="submit"
             fullWidth
@@ -71,7 +97,11 @@ export default function ForgotPassword() {
             className={classes.submit}
             onClick={handleOnClick}
           >
-            Send Email
+            {isEmailSent
+              ? "Email Sent"
+              : isLoading
+              ? "Sending Email..."
+              : "Send an Email"}
           </Button>
         </form>
       </div>
