@@ -74,12 +74,8 @@ Simply run the app using
 
 ## Screenshots
 <p>
-<img width="400" alt="Screen Shot 2020-03-09 at 3 30 32 pm" src="https://user-images.githubusercontent.com/9260574/76183047-1689f380-621b-11ea-9516-fcdd3d32dbb6.png">
-<img width="400" alt="Screen Shot 2020-03-09 at 3 36 20 pm" src="https://user-images.githubusercontent.com/9260574/76183193-bc3d6280-621b-11ea-9108-e5bc0f12ffed.png">
-</p>
-<p>
-<img width="400" alt="Screen Shot 2020-03-09 at 3 42 46 pm" src="https://user-images.githubusercontent.com/9260574/76183475-a11f2280-621c-11ea-8b0c-c954ec2ac82b.png">
-<img width="400" alt="Screen Shot 2020-03-09 at 3 53 13 pm" src="https://user-images.githubusercontent.com/9260574/76183902-1808eb00-621e-11ea-9f45-6378fe95862e.png">
+<img width="300" alt="Sign Up" src="https://user-images.githubusercontent.com/9260574/82983108-e17b8900-a032-11ea-8ca5-577e460c6622.jpg">
+<img width="300" alt="Sign In" src="https://user-images.githubusercontent.com/9260574/82983140-f0623b80-a032-11ea-8826-83f4dcff4156.jpg">
 </p>
 
 
