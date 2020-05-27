@@ -1,16 +1,17 @@
 # React Firebse Auth
 A react app using hooks integrated with firebase for authenticating users. The app includes following features:
-    
-    - Full Firebase Platform Support Including Firestore Database, Authentication, Analytics and Storage
-    - Uses react-hooks only for components
+
+- Full [Firebase](https://firebase.google.com/) Platform Support Including Firestore Database, Authentication, Analytics and Storage
+- Uses [react-hooks](https://reactjs.org/docs/hooks-reference.html) only for components
         ✅ Functional components 
         🚫 Class components
-    - Utilize `useReducer` and `useContext` react hooks to manage global state of the app and `useState` for internal component states.
-    - Various authentication methods to authenticate users:
+- Utilize [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) and [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) react hooks to manage global state of the app and [useState](https://reactjs.org/docs/hooks-reference.html#usestate) for internal component states.
+- Various authentication methods to authenticate users:
+        
         * SignUp using email and password 
         * Sign In using Facebook and Google
         * Sign In using an email link
-    - [MaterialUI](https://material-ui.com/) design components
+- [MaterialUI](https://material-ui.com/) design components
     
 ## Getting Started
 
