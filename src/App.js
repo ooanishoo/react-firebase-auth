@@ -12,8 +12,8 @@ import {
   ForgotPassword,
   SignInWithEmailLink,
   SendSignInEmailLink,
+  Popup,
 } from "./componenets";
-import Popup from "./componenets/Popup";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
