@@ -19,12 +19,8 @@ function App() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const user = useGetCurrentUser();
   useEffect(() => {
-    console.log({ user });
-    console.log(process.env.REACT_APP_HOMEPAGE);
     dispatch({ type: "GET_CURRENT_USER", payload: user });
   }, [user]);
-
-  console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
 
   return (
     <StateContext.Provider value={state}>

@@ -5,7 +5,6 @@ import history from "./history";
 export const confirmSignInWithEmailLink = async () => {
   return new Promise((resolve, reject) => {
     const url = window.location.href;
-    console.log({ url });
 
     if (auth.isSignInWithEmailLink(url)) {
       alert("Passwordless sign in needs to happen");
@@ -22,7 +21,6 @@ export const confirmSignInWithEmailLink = async () => {
       auth
         .signInWithEmailLink(email, url)
         .then((result) => {
-          console.log({ result });
           const user = result.user;
           const person = {
             displayName: user.displayName,
@@ -53,7 +51,6 @@ export async function signInWithEmailLink(email) {
     auth
       .signInWithEmailLink(email, url)
       .then((result) => {
-        console.log({ result });
         const user = result.user;
         const person = {
           displayName: user.displayName,
@@ -66,7 +63,6 @@ export async function signInWithEmailLink(email) {
         resolve(person);
       })
       .catch((err) => {
-        console.log({ err });
         history.push("/");
         reject(err);
       });
@@ -84,8 +80,6 @@ export async function signUpWithEmailAndPassword({ email, password, name }) {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((value) => {
-        console.log({ value });
-
         const user = value.user;
         if (!user) {
           reject();
@@ -114,7 +108,6 @@ export async function signUpWithEmailAndPassword({ email, password, name }) {
         resolve(person);
       })
       .catch((err) => {
-        console.log({ err });
         reject(err);
       });
   });
@@ -131,8 +124,6 @@ export async function signInWithEmailAndPassword(email, password) {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((value) => {
-        console.log({ value });
-
         const user = value.user;
         if (!user) {
           reject();
@@ -155,7 +146,6 @@ export async function signInWithEmailAndPassword(email, password) {
         resolve(person);
       })
       .catch((err) => {
-        console.log({ err });
         reject(err);
       });
   });
@@ -175,9 +165,6 @@ export async function sendSignInEmailLink(email) {
     }
     const url = window.location.href;
     const dynamicUrl = url.slice(0, url.lastIndexOf("/"));
-    console.log("-----------------------------");
-    console.log({ dynamicUrl });
-    console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
     const URL = `${dynamicUrl}/sign-in-with-email-link`;
     console.log({ URL });
     const actionCodeSettings = {
@@ -215,7 +202,6 @@ export async function loginWithProvider(providerId = "google.com") {
       .signInWithPopup(provider)
       .then((result) => {
         const user = result.user;
-        console.log({ user });
         const person = {
           displayName: user.displayName,
           email: user.email,
@@ -225,7 +211,6 @@ export async function loginWithProvider(providerId = "google.com") {
         resolve(person);
       })
       .catch((err) => {
-        console.log({ err });
         reject(err);
       });
   });
@@ -240,9 +225,6 @@ export const sendEmailToResetPassword = async (email) => {
     }
     const url = window.location.href;
     const dynamicUrl = url.slice(0, url.lastIndexOf("/"));
-    console.log("-----------------------------");
-    console.log({ dynamicUrl });
-    console.log(process.env.PUBLIC_URL, "PUBLIC_URL");
     const URL = `${dynamicUrl}/sign-in`;
     console.log({ URL });
     const actionCodeSettings = {
@@ -283,7 +265,6 @@ export const useGetCurrentUser = () => {
   useEffect(
     () =>
       auth.onAuthStateChanged((user) => {
-        console.log("lets see how many times its called");
         if (user) {
           const person = {
             displayName: user.displayName,

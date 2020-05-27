@@ -20,10 +20,8 @@ function PasswordlessLogin() {
 
   // Check if the url is redirect from an email for sign in with email method
   useEffect(() => {
-    console.log("call confirmSignIn");
     confirmSignInWithEmailLink()
       .then((user) => {
-        console.log(user);
         dispatch({ type: "USER_LOGIN_SUCCESS", payload: user });
       })
       .catch((err) => {

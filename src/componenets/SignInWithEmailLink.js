@@ -42,7 +42,7 @@ export default function SignInWithEmailLink() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const dispatch = useContext(DispatchContext);
-  const { isLoading, error } = useContext(StateContext);
+  const { isLoading } = useContext(StateContext);
   const url = window.location.href;
   const [isRedirect, setIsRedirect] = useState(false);
   const [isSameDevice, setIsSameDevice] = useState(true);
@@ -59,21 +59,7 @@ export default function SignInWithEmailLink() {
       .catch((err) => dispatch(userLoginFailure(err.message)));
   };
 
-  // // Check if the url is redirect from an email for sign in with email method
-  // useEffect(() => {
-  //   console.log("call confirmSignIn");
-  //   confirmSignInWithEmailLink()
-  //     .then((user) => {
-  //       console.log(user);
-  //       dispatch({ type: "USER_LOGIN_SUCCESS", payload: user });
-  //     })
-  //     .catch((err) => {
-  //       dispatch({ type: "USER_LOGIN_FAILURE", payload: err.message });
-  //     });
-  // }, []);
-
   useEffect(() => {
-    console.log("useEffect is happening......");
     if (auth.isSignInWithEmailLink(url)) {
       setIsRedirect(true);
     }
@@ -84,10 +70,6 @@ export default function SignInWithEmailLink() {
     if (isRedirect) {
       var email = window.localStorage.getItem("emailForSignIn");
       email ? setEmail(email) : setIsSameDevice(false);
-      // if (!email) {
-      //   setIsSameDevice(false);
-      // }
-      console.log({ email });
     }
   }, [isRedirect]);
 

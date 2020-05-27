@@ -17,8 +17,6 @@ function Dashboard() {
   const [photoURL, setPhotoURL] = useState("");
 
   useEffect(() => {
-    console.log("useEffect ma xu");
-    console.log({ user });
     if (user && user.displayName) {
       setName(user.displayName);
     }

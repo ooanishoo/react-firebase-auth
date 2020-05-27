@@ -21,6 +21,7 @@ import {
 } from "../actionTypes";
 import { signInWithEmailAndPassword } from "../auth";
 import { useHistory } from "react-router-dom";
+import firebase, { auth } from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,6 +47,7 @@ export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [keepLoggedIn, setKeepLoggedIn] = useState(true);
   const dispatch = useContext(DispatchContext);
   const { isLoading } = useContext(StateContext);
   const history = useHistory();
@@ -54,9 +56,14 @@ export default function SignIn() {
     e.preventDefault();
     if (!isLoading) {
       dispatch(userLoginRequest());
+      if (!keepLoggedIn) {
+        // Auth states are now persisted in the current
+        // session only. Closing the window would clear any existing state even
+        // if a user forgets to sign out.
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+      }
       signInWithEmailAndPassword(email, password)
         .then((user) => {
-          console.log({ user });
           dispatch(userLoginSuccess(user));
           history.push("/dashboard");
         })
@@ -101,8 +108,14 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            control={
+              <Checkbox
+                checked={keepLoggedIn}
+                color="primary"
+                onClick={(e) => setKeepLoggedIn(e.target.checked)}
+              />
+            }
+            label="Keep me logged in"
           />
           <Button
             type="submit"
