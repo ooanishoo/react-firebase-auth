@@ -77,6 +77,14 @@ Simply run the app using
 <img width="300" alt="Sign Up" src="https://user-images.githubusercontent.com/9260574/82983108-e17b8900-a032-11ea-8ca5-577e460c6622.jpg">
 <img width="300" alt="Sign In" src="https://user-images.githubusercontent.com/9260574/82983140-f0623b80-a032-11ea-8826-83f4dcff4156.jpg">
 </p>
+<p>
+<img width="300" alt="Sign In with Facebook" src="https://user-images.githubusercontent.com/9260574/82983298-2dc6c900-a033-11ea-9187-6c5e7f69b263.jpg">
+<img width="300" alt="Sign In with Google" src="https://user-images.githubusercontent.com/9260574/82983398-5a7ae080-a033-11ea-965f-a9f3cb303754.jpg">
+</p>
+<p>
+<img width="300" alt="Sign In with Facebook" src="https://user-images.githubusercontent.com/9260574/82983421-6797cf80-a033-11ea-8888-5e0c9bc52bd4.jpg">
+<img width="300" alt="Sign In with Google" src="https://user-images.githubusercontent.com/9260574/82983181-ff48ee00-a032-11ea-9ef4-ad6dd341c300.jpg">
+</p>
 
 
 
