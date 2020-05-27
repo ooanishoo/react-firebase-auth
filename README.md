@@ -1,69 +1,88 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Firebse Auth
+A react app using hooks integrated with firebase for authenticating users. The app includes following features:
+    
+    - Full Firebase Platform Support Including Firestore Database, Authentication, Analytics and Storage
+    - Uses react-hooks only for components
+       ✅ Functional components 
+       🚫 Class components
+    - Utilize `useReducer` and `useContext` react hooks to manage state of the app
+    - Menu page
+    - Story view page
+    
+## Getting Started
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+**Step 1:**
 
-### `yarn start`
+Download or clone this repo by using the link below:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+https://github.com/ooanishoo/react-firebase-auth
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**Step 2:**
 
-### `yarn test`
+Go to project root folder
+``` 
+cd react-firebase-auth
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Step 3:**
 
-### `yarn build`
+Setup a new project in firebase and get the configuration. It will look something like this:
+<p>
+<img width="400" alt="Screen Shot 2020-03-09 at 3 30 32 pm" src="https://user-images.githubusercontent.com/9260574/82982620-ea1f8f80-a031-11ea-996e-a89a77f0fc24.jpg">
+<p/>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Step 4:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Go to the project root folder 
+``` 
+cd react-firebase-auth
+```
+Create a new file `.env`
+```
+touch .env
+```
+Add these env variables with the config values you recieived from firebase
+```
+REACT_APP_FIREBASE_API_KEY=
+REACT_APP_FIREBASE_AUTH_DOMAIN=
+REACT_APP_FIREBASE_DATABASE_URL=
+REACT_APP_FIREBASE_PROJECT_ID=
+REACT_APP_FIREBASE_STORAGE_BUCKET=
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
+REACT_APP_FIREBASE_APP_ID=
+REACT_APP_FIREBASE_MEASUREMENT_ID=
+```
 
-### `yarn eject`
+**Step 5:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Execute the following command in console to get the required dependencies: 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+``` 
+npm install
+```
+**Step 4:**
+Simply run the app using
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+``` 
+./run.sh
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Screenshots
+<p>
+<img width="400" alt="Screen Shot 2020-03-09 at 3 30 32 pm" src="https://user-images.githubusercontent.com/9260574/76183047-1689f380-621b-11ea-9516-fcdd3d32dbb6.png">
+<img width="400" alt="Screen Shot 2020-03-09 at 3 36 20 pm" src="https://user-images.githubusercontent.com/9260574/76183193-bc3d6280-621b-11ea-9108-e5bc0f12ffed.png">
+</p>
+<p>
+<img width="400" alt="Screen Shot 2020-03-09 at 3 42 46 pm" src="https://user-images.githubusercontent.com/9260574/76183475-a11f2280-621c-11ea-8b0c-c954ec2ac82b.png">
+<img width="400" alt="Screen Shot 2020-03-09 at 3 53 13 pm" src="https://user-images.githubusercontent.com/9260574/76183902-1808eb00-621e-11ea-9f45-6378fe95862e.png">
+</p>
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# react-firebase-auth
