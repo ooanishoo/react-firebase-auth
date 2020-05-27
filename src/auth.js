@@ -47,40 +47,29 @@ export async function signInWithEmailLink(email) {
   const url = window.location.href;
 
   return new Promise((resolve, reject) => {
-    if (auth.isSignInWithEmailLink(url)) {
-      // Grab the email from localstorage
-      var email = window.localStorage.getItem("emailForSignIn");
-
-      if (!email) {
-        // User opened the link on a different device.
-        // Ask the user for email again!
-        email = window.prompt("Please provide your email for confirmation");
-      }
-      auth
-        .signInWithEmailLink(email, url)
-        .then((result) => {
-          console.log({ result });
-          const user = result.user;
-          const person = {
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-          };
-          // Clear email from storage.
-          window.localStorage.removeItem("emailForSignIn");
-          history.push("/dashboard");
-          resolve(person);
-        })
-        .catch((err) => {
-          console.log({ err });
-          history.push("/");
-          reject(err);
-        });
-      // .finally(() => {
-      //   // need to clear the url !
-      //   history.push("/");
-      // });
+    if (!email) {
+      return reject("Email was not provided");
     }
+    auth
+      .signInWithEmailLink(email, url)
+      .then((result) => {
+        console.log({ result });
+        const user = result.user;
+        const person = {
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        };
+        // Clear email from storage.
+        window.localStorage.removeItem("emailForSignIn");
+        history.push("/dashboard");
+        resolve(person);
+      })
+      .catch((err) => {
+        console.log({ err });
+        history.push("/");
+        reject(err);
+      });
   });
 }
 
