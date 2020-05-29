@@ -22,6 +22,9 @@ import {
 import { signInWithEmailAndPassword } from "../auth";
 import { useHistory } from "react-router-dom";
 import firebase, { auth } from "../firebase";
+import { InputAdornment, IconButton } from "@material-ui/core";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,11 +49,26 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [keepUserLoggedIn, setKeepUserLoggedIn] = useState(true);
   const dispatch = useContext(DispatchContext);
   const { isLoading } = useContext(StateContext);
   const history = useHistory();
+  const [password, setPassword] = React.useState({
+    value: "",
+    showPassword: false,
+  });
+
+  const handleChange = (prop) => (event) => {
+    setPassword({ ...password, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setPassword({ ...password, showPassword: !password.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +80,7 @@ export default function SignIn() {
         // if a user forgets to sign out.
         auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
       }
-      signInWithEmailAndPassword(email, password)
+      signInWithEmailAndPassword(email, password.value)
         .then((user) => {
           dispatch(userLoginSuccess(user));
           history.push("/dashboard");
@@ -86,7 +104,6 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
@@ -101,11 +118,27 @@ export default function SignIn() {
             fullWidth
             name="password"
             label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={password.value}
+            type={password.showPassword ? "text" : "password"}
+            onChange={handleChange("value")}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {password.showPassword ? (
+                      <VisibilityIcon />
+                    ) : (
+                      <VisibilityOffIcon />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <FormControlLabel
             control={
